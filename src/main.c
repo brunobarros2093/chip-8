@@ -13,6 +13,13 @@ int main(int argc, char **argv)
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_TEXTUREACCESS_TARGET);
     
     while(1) {
+        SDL_Event event;
+        while(SDL_PollEvent(&event)){
+            if (event.type == SDL_QUIT) {
+                //TODO: pensar numa solução melhor
+                goto out;
+            }
+        }
         // rgb -- black 
         SDL_SetRenderDrawColor(renderer, 0, 0,0,0);
         // pinta a tela inteira 
@@ -26,6 +33,7 @@ int main(int argc, char **argv)
         SDL_RenderDrawRect(renderer, &r);
         SDL_RenderPresent(renderer);
     }
-    SDL_DestroyWindow(window);
+    out:
+        SDL_DestroyWindow(window);
     return 0;
 }
